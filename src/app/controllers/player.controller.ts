@@ -29,11 +29,22 @@ export class PlayerController implements StateObserver {
 
   public onSpeedChange(speed: number): void {
     this.player.playbackRate = speed;
+    if (speed === 1.0) {
+      this.state.isActive = false;
+      this.player.preservesPitch = true;
+      this.player.mozPreservesPitch = true;
+    } else {
+      this.state.isActive = true;
+      this.player.preservesPitch = false;
+      this.player.mozPreservesPitch = false;
+    }
   }
 
   private getPlayer(): Promise<HTMLVideoElement> {
     return resolveOrRetry((resolve, retry) => {
-      const player = document.getElementsByClassName('video-stream html5-main-video')[0] as HTMLVideoElement;
+      const player = document.getElementsByClassName(
+        'video-stream html5-main-video',
+      )[0] as HTMLVideoElement;
 
       if (player && player.readyState) {
         resolve(player);

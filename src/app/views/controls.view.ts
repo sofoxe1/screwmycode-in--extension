@@ -95,24 +95,14 @@ export class ControlsView implements StateObserver {
   }
 
   private renderNode() {
-    this.node.style.display = this.state.isActive ? 'inline-flex' : 'none';
+    this.node.style.display = 'inline-flex';
   }
 
   private renderPercentage() {
-    if (this.state.isActive !== true) {
-      this.percentage.style.display = 'none';
-      return;
-    }
-
     this.percentage.textContent = `${speedToPercentage(this.state.speed, 1)} ${ControlsViewValues.percentage}`;
   }
 
   private renderSemitones() {
-    if (this.state.isActive !== true) {
-      this.semitones.textContent = ControlsViewValues.semitones;
-      return;
-    }
-
     this.semitones.textContent = `${speedToSemitones(this.state.speed, 1)} ${ControlsViewValues.semitones}`;
   }
 }

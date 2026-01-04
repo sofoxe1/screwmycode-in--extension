@@ -51,18 +51,12 @@ export class PopupView implements StateObserver {
   }
 
   public renderIndicators(): void {
-    if (this.state.isActive === true) {
-      this.percentage.textContent = `${speedToPercentage(this.state.speed)} %`;
-      this.semitones.textContent = `${speedToSemitones(this.state.speed, 1)} st`;
-    } else {
-      this.percentage.textContent = 'off';
-      this.semitones.textContent = 'off';
-    }
+    this.percentage.textContent = `${speedToPercentage(this.state.speed)} %`;
+    this.semitones.textContent = `${speedToSemitones(this.state.speed, 1)} st`;
   }
 
   public renderSlider(): void {
     this.slider.value = this.state.speed.toString();
-    this.slider.disabled = !this.state.isActive;
   }
 
   private renderStep() {

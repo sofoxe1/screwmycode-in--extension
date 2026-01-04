@@ -25,6 +25,8 @@ export class PlayerController implements StateObserver {
     } else {
       this.player.playbackRate = state.speed;
     }
+    this.player.preservesPitch = !isActive;
+    this.player.mozPreservesPitch = !isActive;
   }
 
   public onSpeedChange(speed: number): void {
@@ -44,8 +46,10 @@ export class PlayerController implements StateObserver {
   }
 
   private load() {
-    this.player.preservesPitch = false;
-    this.player.mozPreservesPitch = false;
+    if (this.state.isActive) {
+      this.player.preservesPitch = false;
+      this.player.mozPreservesPitch = false;
+    }
 
     this.player.onplay = () => {
       if (this.state.isActive) {

@@ -136,21 +136,24 @@ export class State {
     const {isActive, speed, step} = changes;
 
     if (typeof isActive !== 'undefined') {
-      if (isActive.newValue !== this.isActive) {
+      if (
+        isActive.newValue !== this.isActive &&
+        typeof isActive.newValue === 'boolean'
+      ) {
         this.isActive = isActive.newValue;
         this.notifyActive();
       }
     }
 
     if (typeof speed !== 'undefined') {
-      if (speed.newValue !== this.speed) {
+      if (speed.newValue !== this.speed && typeof speed.newValue === 'number') {
         this.speed = speed.newValue;
         this.notifySpeed();
       }
     }
 
     if (typeof step !== 'undefined') {
-      if (step.newValue !== this.step) {
+      if (step.newValue !== this.step && typeof step.newValue === 'number') {
         this.step = step.newValue;
         this.notifyStep();
       }

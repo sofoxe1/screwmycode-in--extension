@@ -29,17 +29,14 @@ export class ControlsController {
 
   private handleIncrease() {
     this.view.increase.addEventListener('click', async () => {
-      if (this.state.isActive) {
-        await this.state.increaseSpeed();
-      }
+      await this.state.increaseSpeed();
+      // }
     });
   }
 
   private handleDecrease() {
     this.view.decrease.addEventListener('click', async () => {
-      if (this.state.isActive) {
-        await this.state.increaseSpeed(true);
-      }
+      await this.state.increaseSpeed(true);
     });
   }
 }

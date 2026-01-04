@@ -9,7 +9,6 @@ import {
 } from '../constants';
 import {clampValue} from '../utils/clamp-value';
 import {Browser} from './browser';
-import StorageChange = chrome.storage.StorageChange;
 
 export interface StateInterface {
   isActive: boolean;
@@ -129,34 +128,8 @@ export class State {
     await this.loadActive();
     await this.loadSpeed();
     await this.loadStep();
-    Browser.addStorageListener(this.onStorageChange.bind(this));
-  }
-
-  private onStorageChange(changes: Record<string, StorageChange>) {
-    const {isActive, speed, step} = changes;
-
-    if (typeof isActive !== 'undefined') {
-      if (
-        isActive.newValue !== this.isActive &&
-        typeof isActive.newValue === 'boolean'
-      ) {
-        this.isActive = isActive.newValue;
-        this.notifyActive();
-      }
-    }
-
-    if (typeof speed !== 'undefined') {
-      if (speed.newValue !== this.speed && typeof speed.newValue === 'number') {
-        this.speed = speed.newValue;
-        this.notifySpeed();
-      }
-    }
-
-    if (typeof step !== 'undefined') {
-      if (step.newValue !== this.step && typeof step.newValue === 'number') {
-        this.step = step.newValue;
-        this.notifyStep();
-      }
+    if (!this.isActive) {
+      this.speed = 1.0;
     }
   }
 
